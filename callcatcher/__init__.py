@@ -76,7 +76,7 @@ def compile(args):
 	filename = callconfig.cachefile(realoutput)
 	makecachedir(filename)
 
-	if suffix == '.s':
+	if suffix == '.s' or suffix == '.S':
 		#force an intermediate copy of .s file
 		#for the rare case of an input .s file
 		shutil.copyfile(realinput, filename)
@@ -102,6 +102,8 @@ def compile(args):
 		errret = os.system(program)
 		if errret != 0:
 			return
+	if realoutput == '/dev/null':
+		return
 
 	#collect non-virtual method/function declarations
 	aDefines = defines.CollectDefines()
@@ -155,6 +157,8 @@ def link(args):
 
 	if not len(inputs):
 		return
+	if realoutput == '/dev/null':
+		return
 
 	makecachedir(output)
 	print("callcatcher - detecting link:")
@@ -172,7 +176,7 @@ def archive(args):
 	inputs = []
 	uncompiled = []
 	skipping = True;
-	for arg in args[1:]:
+	for arg in args[2:]:
 		if len(realoutput) == 0 and (arg[0] == '-' or len(arg) == 1):
 			continue;
 		elif (len(realoutput) == 0):

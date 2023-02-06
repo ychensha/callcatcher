@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import re, os.path, pickle, fnmatch
 from . import lookup, callconfig, combine
+import traceback
 
 LibOMacros = [
   '::impl_createFactory\(', 
@@ -180,18 +181,31 @@ def removemapped(methods, mapfileexports):
 	return methods.difference(matched)
 
 def analyse(output, prefix = "", strict = False, detailed = False, LibO = False, mapfile=""):
-	mydump = open(output + 'directcalls.dump', 'rb')
-	directcalls = pickle.load(mydump)
-	mydump.close();
+	print('start analyse ' + output)
+	try:
+		with open(output + 'directcalls.dump', 'rb') as mydump:
+			directcalls = pickle.load(mydump)
+	except Exception as e:
+    	# everything else, possibly fatal
+		print(traceback.print_exec())
+		return
 
-	mydump = open(output + 'methods.dump', 'rb')
-	methods = pickle.load(mydump)
-	mydump.close();
+	try:
+		with open(output + 'methods.dump', 'rb') as mydump:
+			methods = pickle.load(mydump)
+	except Exception as e:
+    	# everything else, possibly fatal
+		print(traceback.print_exec())
+		return
 
-	mydump = open(output + 'virtualmethods.dump', 'rb')
-	virtualmethods = pickle.load(mydump)
-	mydump.close();
-
+	try:
+		with open(output + 'virtualmethods.dump', 'rb') as mydump:
+			virtualmethods = pickle.load(mydump)
+	except Exception as e:
+    	# everything else, possibly fatal
+		print(traceback.print_exec())
+		return
+	
 	mapfileexports = readmapfile(mapfile)
 
 	if detailed:
