@@ -115,7 +115,7 @@ def compile(args):
 
 	os.remove(filename)
 
-	print('\t' + str(len(aDefines.methods)) + ' methods ' + '(' + str(len(aDefines.virtualmethods)) + ' virtual)')
+	# print('\t' + str(len(aDefines.methods)) + ' methods ' + '(' + str(len(aDefines.virtualmethods)) + ' virtual)')
 
 def link(args):
 	realoutput = abslinkoutput(args)
