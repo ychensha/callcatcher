@@ -63,10 +63,10 @@ class CollectDefines:
 							self.methods.add(name)
 		self.savedb(inputname)
 
-		for key in self.methods:
-			if not key in self.virtualmethods:
-				print('\t\tnon-virtual ' + aLookup.lookup(key))
+		# for key in self.methods:
+		# 	if not key in self.virtualmethods:
+		# 		print('\t\tnon-virtual ' + aLookup.lookup(key))
 
-		for key in self.methods:
-			if key in self.virtualmethods:
-				print('\t\tvirtual ' + aLookup.lookup(key))
+		# for key in self.methods:
+		# 	if key in self.virtualmethods:
+		# 		print('\t\tvirtual ' + aLookup.lookup(key))
